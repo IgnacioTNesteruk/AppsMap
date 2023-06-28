@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native'
-import  {COLORS } from '../constants'
+import { COLORS } from '../constants'
 import { addPlace } from '../store/places.actions'
 import { useDispatch } from 'react-redux'
 import ImageSelector from "../components/ImageSelector"
@@ -11,12 +11,14 @@ const NewPlaceScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const [title, setTitle] = useState("");
     const [image, setImage] = useState();
+    const [location, setLocation] = useState();
+
 
 
     const handleTitleChange = text => setTitle(text);
 
     const handleSave = () => {
-        dispatch(addPlace(title, image));
+        dispatch(addPlace(title, image, location));
         navigation.navigate("Direcciones");
     };
 
@@ -28,8 +30,8 @@ const NewPlaceScreen = ({ navigation }) => {
                     style={styles.input}
                     value={title}
                     onChangeText={handleTitleChange} />
-                    <ImageSelector onImage={setImage}/>
-                    <LocationSelector/>
+                <ImageSelector onImage={setImage} />
+                <LocationSelector onLocation={setLocation}/>
                 <Button
                     title='Guardar Direccion'
                     color={COLORS.PINK}
